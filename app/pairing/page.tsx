@@ -68,9 +68,20 @@ export default function PairingPage() {
   };
 
   const handleCopyCode = () => {
-    navigator.clipboard.writeText(myCode).catch(() => {});
-    setCodeCopied(true);
-    setTimeout(() => setCodeCopied(false), 2000);
+    navigator.clipboard.writeText(myCode).then(() => {
+      setCodeCopied(true);
+      setTimeout(() => setCodeCopied(false), 2000);
+    }).catch(() => {
+      // Fallback: select the code text for manual copy
+      const el = document.createElement("textarea");
+      el.value = myCode;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand("copy");
+      document.body.removeChild(el);
+      setCodeCopied(true);
+      setTimeout(() => setCodeCopied(false), 2000);
+    });
   };
 
   const handleAddPairing = (e: React.FormEvent) => {

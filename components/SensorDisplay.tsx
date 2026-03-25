@@ -15,7 +15,7 @@ function generateSensorData(): SensorData {
   const motions: SensorData["motion"][] = ["still", "walking", "running"];
   const motion = motions[Math.floor(Math.random() * motions.length)];
   const status: SensorData["status"] =
-    heartRate > 95 ? "warning" : heartRate > 105 ? "critical" : "normal";
+    heartRate > 105 ? "critical" : heartRate > 95 ? "warning" : "normal";
   return { heartRate, motion, status };
 }
 
